@@ -10,6 +10,7 @@ import { JWT_SECRET_KEY } from './auth.jwt.secret';
 export class AuthGuard implements CanActivate {
   // 引入属性
   constructor(
+    // 在后面可以验证登录
     private jwtService: JwtService,
     private reflector: Reflector
   ) {}
@@ -30,7 +31,6 @@ export class AuthGuard implements CanActivate {
     if (isPublic) {
       return true
     }
-
     // 拿到用户请求对象
     const request = context.switchToHttp().getRequest()
     const token = extractTokenFromHeader(request)
@@ -39,6 +39,7 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException()
     }
     try {
+      // verifyAsync解析token，在auth.service中生成
       const paylaod = await this.jwtService.verifyAsync(token, {
         secret: JWT_SECRET_KEY
       })
@@ -49,6 +50,7 @@ export class AuthGuard implements CanActivate {
     }
 
     // 校验成功，放行
+    // console.log('success')
     return true;
   }
 }
@@ -56,5 +58,6 @@ export class AuthGuard implements CanActivate {
 // 从request对象中解析出token
 function extractTokenFromHeader(requset) {
   const [type, token] = requset.headers.authorization?.split(' ') ?? []
+  // console.log(token)
   return type === 'Bearer' ? token : 'wrong type'
 }

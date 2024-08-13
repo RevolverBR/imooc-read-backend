@@ -17,8 +17,8 @@ import { JWT_SECRET_KEY } from './auth.jwt.secret';
       global: true,
       // 私钥
       secret: JWT_SECRET_KEY,
-      // 过期时间,24h
-      signOptions: { expiresIn: 24 * 60 * 60 + 's'}
+      // 过期时间,24h * 7
+      signOptions: { expiresIn: 168 * 60 * 60 + 's'}
     })
   ],
   controllers: [AuthController],

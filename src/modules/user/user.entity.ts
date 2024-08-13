@@ -7,14 +7,13 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
   // 唯一
   @Unique(['username'])
   @Column()
   username: string;
 
   @Column()
-  password: number;
+  password: string;
 
   @Column()
   avatar: string;

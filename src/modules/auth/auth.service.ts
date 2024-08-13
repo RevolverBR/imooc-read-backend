@@ -33,6 +33,7 @@ export class AuthService {
 
     // 生成返回一个jwttoken，然后就可以在登录接口拿到token
     return {
+      // 用signAsync生产新的token签名
       token: await this.jwtService.signAsync(payload)
     }
   }

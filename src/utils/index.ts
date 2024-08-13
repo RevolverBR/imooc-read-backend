@@ -32,3 +32,10 @@ export function error(msg) {
     message: msg
   }
 }
+
+// 封装request p:promis
+export function wrapperResponse(p, msg) {
+  return p
+  .then((data) => success(data, msg))
+  .catch((err) => error(err.message))
+}

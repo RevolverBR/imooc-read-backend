@@ -32,9 +32,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true,
       // 指示是否应在每次启动应用程序时自动创建数据库架构。请小心使用此选项，不要在生产中使用它，否则您可能会丢失生产数据。此选项在调试和开发期间非常有用。作为替代方案，您可以使用CLI并运行schema:sync命令。
       // 请注意，对于MongoDB数据库，它不会创建模式，因为MongoDB是无模式的。相反，它只是通过创建索引来同步。
-      synchronize: true,
+      synchronize: false,
       // 打印执行的sql查询语句
-      // logging: true
+      logging: true
     }),
   ],
   controllers: [AppController],

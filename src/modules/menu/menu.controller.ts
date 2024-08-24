@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Delete, Param, ParseIntPipe, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Param, ParseIntPipe, Req } from '@nestjs/common';
 import { MenuService } from './menu.service'
 import { wrapperResponse } from 'src/utils';
 // import { wrapperResponse } from 'src/utils';
@@ -25,6 +25,22 @@ export class MenuController {
   getAllMenu() {
     return wrapperResponse(
       this.menuService.findAll(), "获取用户信息成功"
+    )
+  }
+
+  // 10-2
+  @Post()
+  create(@Body() body) {
+    return wrapperResponse(
+      this.menuService.create(body), "菜单创建成功"
+    )
+  }
+
+  // 10-3
+  @Put()
+  update(@Body() body) {
+    return wrapperResponse(
+      this.menuService.update(body), "菜单更新成功"
     )
   }
 }

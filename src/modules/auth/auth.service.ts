@@ -29,9 +29,9 @@ export class AuthService {
       throw new UnauthorizedException()
     }
 
-    const payload = { username: user.username, userid: user.id}
+    // 生成一个jwttoken，将用户信息存放到里面，然后就可以在登录接口拿到token
+    const payload = { username: user.username, userid: user.id }
 
-    // 生成返回一个jwttoken，然后就可以在登录接口拿到token
     return {
       // 用signAsync生产新的token签名
       token: await this.jwtService.signAsync(payload)

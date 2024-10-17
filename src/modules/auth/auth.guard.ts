@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
-import { Observable } from 'rxjs';
+// import { Observable } from 'rxjs';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from './auth.decorator';
 import { JwtService } from '@nestjs/jwt';
@@ -10,13 +10,13 @@ import { JWT_SECRET_KEY } from './auth.jwt.secret';
 export class AuthGuard implements CanActivate {
   // 引入属性
   constructor(
-    // 在后面可以验证登录
+    // 引入jwt
     private jwtService: JwtService,
     private reflector: Reflector
   ) {}
 
   // 在请求可以被处理之前的处理逻辑
-  // 不包括login，要如何过略login？
+  // 不包括login，login不带token且返回token，要如何过略login？
   // 新建一个decorator，在里面创建一个注解Public
   async canActivate(
     context: ExecutionContext
@@ -34,12 +34,12 @@ export class AuthGuard implements CanActivate {
     // 拿到用户请求对象
     const request = context.switchToHttp().getRequest()
     const token = extractTokenFromHeader(request)
+    // 如果没有token返回未授权
     if (!token) {
-      // 没有token抛出错误
       throw new UnauthorizedException()
     }
+    // 解析token，在auth.service中生成
     try {
-      // verifyAsync解析token，在auth.service中生成
       const paylaod = await this.jwtService.verifyAsync(token, {
         secret: JWT_SECRET_KEY
       })

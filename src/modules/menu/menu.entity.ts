@@ -2,7 +2,7 @@
 import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm'
 
 @Entity('menu')
-export class Menu{
+export class Menu {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -15,8 +15,7 @@ export class Menu{
   @Unique(['name'])
   name: string;
 
-  // 数据库中显示没有default错误，填了1，未处理
-  @Column()
+  @Column({default: ''})
   redirect: string;
 
   @Column()

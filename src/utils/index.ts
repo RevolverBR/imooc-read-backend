@@ -25,6 +25,16 @@ export function success(data, msg) {
   }
 }
 
+// 请求成功的方法
+export function successCount(data, count, msg) {
+  return {
+    code: 0,
+    result: data,
+    message: msg,
+    count
+  }
+}
+
 // 请求error
 export function error(msg) {
   return {
@@ -38,4 +48,13 @@ export function wrapperResponse(p, msg) {
   return p
   .then((data) => success(data, msg))
   .catch((err) => error(err.message))
+}
+
+export function wrapperCountResponse(dataPromise, countPromise, msg) {
+  return Promise.all([dataPromise, countPromise])
+  .then(res => {
+    const [data, countArr] = res
+    const  [count] = countArr
+    return successCount(data, count.count, msg)
+  }).catch(err => error(err.message))
 }

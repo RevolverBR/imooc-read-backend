@@ -8,6 +8,7 @@ import { success, error, wrapperResponse } from 'src/utils';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  // 标识通过guard
   @Public()
   @Post('login')
   @UseFilters(new HttpExceptionFilter())
